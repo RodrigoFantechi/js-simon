@@ -39,7 +39,7 @@ function startGame(arrayRandomNumber, wherePrintResult, whereGemerateGrid ) {
 
     setTimeout(function () {
         whereGemerateGrid.style.display = 'none';
-    }, 3000)
+    }, 30000)
 
     setTimeout(function () {
 
@@ -59,7 +59,7 @@ function startGame(arrayRandomNumber, wherePrintResult, whereGemerateGrid ) {
         }else{
             wherePrintResult.innerText = `Hai indovinato ${numeriIndovinati.length} numeri. I numeri: ${numeriIndovinati}`;
         }
-    }, 3100)
+    }, 30100)
 
 
 
