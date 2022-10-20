@@ -10,7 +10,7 @@ const timer = document.querySelector('.timer');
 const arrayNumeriRandom = generaArrayNumeriRandomici();
 
 generaGriglia(container, arrayNumeriRandom);
-startGame(arrayNumeriRandom, result, container, timer);
+startGame(arrayNumeriRandom, result, timer);
 
 
 
@@ -36,41 +36,51 @@ function generaArrayNumeriRandomici() {
     return array;
 }
 
-function startGame(arrayRandomNumber, wherePrintResult, whereGemerateGrid, whereGemerateTimer) {
+function startGame(arrayRandomNumber, wherePrintResult, whereGemerateTimer) {
 
     let numeroTimer = 30;
-    const intervalloNumeri =  setInterval(function(){
-    whereGemerateTimer.innerText = `Mancano ${numeroTimer} secondi!`;
-    if (numeroTimer ===0){
-        clearInterval(intervalloNumeri)
-        whereGemerateTimer.style.display= 'none';
-        whereGemerateGrid.style.display = 'none';
-        setTimeout(function () {
+    const intervalloNumeri = setInterval(function () {
+        whereGemerateTimer.innerText = `Mancano ${numeroTimer} secondi!`;
+        if (numeroTimer === 0) {
+            clearInterval(intervalloNumeri)
+            whereGemerateTimer.style.display = 'none';
+            const allSquares = document.querySelectorAll('.square');
+            for (let i = 0; i < allSquares.length; i++) {
+                const singleSquare = allSquares[i];
+                singleSquare.innerText = '';
+            }
+            setTimeout(function () {
 
-            let numeriIndovinati = [];
-            for (let i = 1; i <= arrayRandomNumber.length; i++) {
-                let numeroInseritoDallUser = Number(prompt(`inserisci il ${i}° numero`))
-                if (numeroInseritoDallUser === arrayRandomNumber[i - 1]) {
-                    numeriIndovinati.push(numeroInseritoDallUser);
+                let numeriIndovinati = [];
+                for (let i = 1; i <= arrayRandomNumber.length; i++) {
+                    let numeroInseritoDallUser = Number(prompt(`inserisci il ${i}° numero`))
+                    if (numeroInseritoDallUser === arrayRandomNumber[i - 1]) {
+                        numeriIndovinati.push(numeroInseritoDallUser);
+                    }
                 }
-            }
-            whereGemerateGrid.style.display = 'flex';
-            wherePrintResult.style.display ='block';
-            if(numeriIndovinati.length ===0){
-            wherePrintResult.innerText = `Hai indovinato 0 numeri.`;
-            } else if(numeriIndovinati.length ===0){
-                wherePrintResult.innerText = `Hai indovinato 1 numero. Il numero: ${numeriIndovinati}`;
-            }else{
-                wherePrintResult.innerText = `Hai indovinato ${numeriIndovinati.length} numeri. I numeri: ${numeriIndovinati}`;
-            }
-        }, 100)
-    } else if (numeroTimer <=5){
-        whereGemerateTimer.innerText = `Hurry Up!  Mancano ${numeroTimer} secondi!`;
-        numeroTimer--;
-    } else{
-        numeroTimer--;
-    }
-   },1000)
 
-} 
+                const allSquares = document.querySelectorAll('.square');
+                for (let i = 0; i < allSquares.length; i++) {
+                    const singleSquare = allSquares[i];
+                    singleSquare.innerText = arrayRandomNumber[i];
+                }
+
+                wherePrintResult.style.display = 'block';
+                if (numeriIndovinati.length === 0) {
+                    wherePrintResult.innerText = `Hai indovinato 0 numeri.`;
+                } else if (numeriIndovinati.length === 0) {
+                    wherePrintResult.innerText = `Hai indovinato 1 numero. Il numero: ${numeriIndovinati}`;
+                } else {
+                    wherePrintResult.innerText = `Hai indovinato ${numeriIndovinati.length} numeri. I numeri: ${numeriIndovinati}`;
+                }
+            }, 100)
+        } else if (numeroTimer <= 5) {
+            whereGemerateTimer.innerText = `Hurry Up!  Mancano ${numeroTimer} secondi!`;
+            numeroTimer--;
+        } else {
+            numeroTimer--;
+        }
+    }, 1000)
+
+}
 
