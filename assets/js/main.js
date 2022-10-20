@@ -9,7 +9,6 @@ const result = document.querySelector('.result');
 const timer = document.querySelector('.timer');
 const arrayNumeriRandom = generaArrayNumeriRandomici();
 
-// startTimer(timer);
 generaGriglia(container, arrayNumeriRandom);
 startGame(arrayNumeriRandom, result, container, timer);
 
@@ -24,6 +23,7 @@ function generaGriglia(whereGemerateGrid, arrayRandomNumber,) {
         whereGemerateGrid.insertAdjacentElement('beforeend', square);
     }
 };
+
 
 function generaArrayNumeriRandomici() {
     const array = [];
