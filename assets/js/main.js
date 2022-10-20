@@ -6,14 +6,16 @@ Visualizzare in pagina 5 numeri casuali. Da lì parte un timer di 30 secondi. Do
 
 const container = document.querySelector('.container');
 const result = document.querySelector('.result');
+const timer = document.querySelector('.timer');
 const arrayNumeriRandom = generaArrayNumeriRandomici();
 
+// startTimer(timer);
 generaGriglia(container, arrayNumeriRandom);
-startGame(arrayNumeriRandom, result, container);
+startGame(arrayNumeriRandom, result, container, timer);
 
 
 
-function generaGriglia(whereGemerateGrid, arrayRandomNumber) {
+function generaGriglia(whereGemerateGrid, arrayRandomNumber,) {
 
     for (let i = 0; i < arrayRandomNumber.length; i++) {
         const square = document.createElement('div');
@@ -34,33 +36,41 @@ function generaArrayNumeriRandomici() {
     return array;
 }
 
-function startGame(arrayRandomNumber, wherePrintResult, whereGemerateGrid ) {
+function startGame(arrayRandomNumber, wherePrintResult, whereGemerateGrid, whereGemerateTimer) {
 
-
-    setTimeout(function () {
+    let numeroTimer = 30;
+    const intervalloNumeri =  setInterval(function(){
+    whereGemerateTimer.innerText = `Mancano ${numeroTimer} secondi!`;
+    if (numeroTimer ===0){
+        clearInterval(intervalloNumeri)
+        whereGemerateTimer.style.display= 'none';
         whereGemerateGrid.style.display = 'none';
-    }, 30000)
+        setTimeout(function () {
 
-    setTimeout(function () {
-
-        let numeriIndovinati = [];
-        for (let i = 1; i <= arrayRandomNumber.length; i++) {
-            let numeroInseritoDallUser = Number(prompt(`inserisci il ${i}° numero`))
-            if (numeroInseritoDallUser === arrayRandomNumber[i - 1]) {
-                numeriIndovinati.push(numeroInseritoDallUser);
+            let numeriIndovinati = [];
+            for (let i = 1; i <= arrayRandomNumber.length; i++) {
+                let numeroInseritoDallUser = Number(prompt(`inserisci il ${i}° numero`))
+                if (numeroInseritoDallUser === arrayRandomNumber[i - 1]) {
+                    numeriIndovinati.push(numeroInseritoDallUser);
+                }
             }
-        }
-        whereGemerateGrid.style.display = 'flex';
-        wherePrintResult.style.display ='block';
-        if(numeriIndovinati.length ===0){
-        wherePrintResult.innerText = `Hai indovinato 0 numeri.`;
-        } else if(numeriIndovinati.length ===0){
-            wherePrintResult.innerText = `Hai indovinato 1 numero. Il numero: ${numeriIndovinati}`;
-        }else{
-            wherePrintResult.innerText = `Hai indovinato ${numeriIndovinati.length} numeri. I numeri: ${numeriIndovinati}`;
-        }
-    }, 30100)
+            whereGemerateGrid.style.display = 'flex';
+            wherePrintResult.style.display ='block';
+            if(numeriIndovinati.length ===0){
+            wherePrintResult.innerText = `Hai indovinato 0 numeri.`;
+            } else if(numeriIndovinati.length ===0){
+                wherePrintResult.innerText = `Hai indovinato 1 numero. Il numero: ${numeriIndovinati}`;
+            }else{
+                wherePrintResult.innerText = `Hai indovinato ${numeriIndovinati.length} numeri. I numeri: ${numeriIndovinati}`;
+            }
+        }, 100)
+    } else if (numeroTimer <=3){
+        whereGemerateTimer.innerText = `Hurry Up!  Mancano ${numeroTimer} secondi!`;
+        numeroTimer--;
+    } else{
+        numeroTimer--;
+    }
+   },1000)
 
+} 
 
-
-}
