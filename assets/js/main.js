@@ -64,7 +64,7 @@ function startGame(arrayRandomNumber, wherePrintResult, whereGemerateGrid, where
                 wherePrintResult.innerText = `Hai indovinato ${numeriIndovinati.length} numeri. I numeri: ${numeriIndovinati}`;
             }
         }, 100)
-    } else if (numeroTimer <=3){
+    } else if (numeroTimer <=5){
         whereGemerateTimer.innerText = `Hurry Up!  Mancano ${numeroTimer} secondi!`;
         numeroTimer--;
     } else{
